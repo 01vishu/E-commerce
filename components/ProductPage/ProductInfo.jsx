@@ -24,7 +24,9 @@ const ProductInfo = ({ productData, variant }) => {
             : "text-sm font-medium py-2 px-4 border border-[#88888]"
         }
         key={flavour[key][value[0]].slug}
-        onClick={() => router.push(`/shop/${flavour[key][value[0]].slug}`)}
+        onClick={() => {
+          router.push(`/shop/${flavour[key][value[0]].slug}`), setQty(1);
+        }}
       >
         {key.toString().toLocaleUpperCase()}
       </button>
@@ -41,7 +43,9 @@ const ProductInfo = ({ productData, variant }) => {
               : `primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border`
           }
           key={index}
-          onClick={() => router.push(`/shop/${slug}`)}
+          onClick={() => {
+            router.push(`/shop/${slug}`), setQty(1);
+          }}
         >
           {weight}
         </button>
