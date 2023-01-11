@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("./Slider.css");
+* {
+    margin: 0;
+    box-sizing: border-box;
+    &::after,
+     ::before {
+        box-sizing: border-box;
+    }
+}
+
+body {
+    background-color: #fff;
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+select,
+textarea,
+input {
+    font: inherit;
+    &:focus {
+        @apply outline-[#8D735F];
+    }
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --swiper-navigation-color: #8d735f;
+}
+
+@layer base {
+    .text-primary {
+        @apply text-[#888888];
+    }
+    .primary {
+        @apply text-[#F4F4F4];
+    }
+    .primary-bg {
+        @apply bg-[#F4F4F4];
+    }
+    .secondary {
+        @apply text-[#8D735F];
+    }
+    .secondary-bg {
+        @apply bg-[#8D735F] text-white;
+    }
+    .link-underline {
+        border-bottom-width: 0;
+        background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+        background-size: 0 3px;
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        transition: background-size 0.5s ease-in-out;
+    }
+    .link-underline-black {
+        background-image: linear-gradient(transparent, transparent), linear-gradient(#8d735f, #8d735f);
+    }
+    .link-underline:hover {
+        background-size: 60% 2px;
+        background-position: 0 100%;
+        color: #8d735f;
+    }
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .line-clamp-1 {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+        pointer-events: auto;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        -webkit-appearance: none;
+        @apply secondary-bg;
+        /* @apply w-6 h-6 appearance-none pointer-events-auto; */
+    }
+    @media (max-width: 340px) {
+        .small-clamp {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    }
+}
