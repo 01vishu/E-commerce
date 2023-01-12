@@ -153,7 +153,7 @@ const Navbar = () => {
                 />
                 <BsSearch onClick={onSearch} className="cursor-pointer" />
               </div>
-              <div className="relative">
+              <div className="relative ">
                 <div onClick={() => setIsOpen(!isOpen)}>
                   {session?.user?.image ? (
                     <img
@@ -172,7 +172,7 @@ const Navbar = () => {
                   )}
                 </div>
                 {isOpen && (
-                  <div className="absolute z-20 my-2 bg-white shadow w-24 flex flex-col left-0">
+                  <div className="absolute z-20 my-2 border-2 border-[#f4f4f4] bg-white shadow w-32 flex flex-col left-0">
                     {!session && (
                       <Link className="block py-2 px-4" href="/auth/login">
                         Login
@@ -194,6 +194,15 @@ const Navbar = () => {
                         onClick={() => setIsOpen(false)}
                       >
                         Profile
+                      </Link>
+                    )}
+                    {session?.user.role === "admin" && (
+                      <Link
+                        className="block py-2 px-4"
+                        href="/admin/dashboard"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Dashboard
                       </Link>
                     )}
                     {session && (

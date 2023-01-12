@@ -32,7 +32,6 @@ const Register = () => {
       setEmail("");
       setPassword("");
       setLoading(false);
-      router.push("/");
     } catch (err) {
       console.log(err);
       if (!err?.originalStatus) {
