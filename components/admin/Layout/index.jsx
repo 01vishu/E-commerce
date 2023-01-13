@@ -1,6 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
-import { MdAnalytics, MdDashboard, MdMessage } from "react-icons/md";
+import {
+  MdAnalytics,
+  MdDashboard,
+  MdMessage,
+  MdSettingsInputComponent,
+} from "react-icons/md";
 import { HiCurrencyRupee, HiPlusCircle, HiUsers } from "react-icons/hi";
 import { IoNotificationsSharp } from "react-icons/io5";
 import {
@@ -33,9 +38,9 @@ const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex gap-8">
-      <div className="absolute md:relative h-full">
+      <div className="absolute  md:relative ">
         <div
-          className={`flex-1 flex-col flex gap-4 p-4 bg-[#f4f4f4] rounded-lg h-full relative md:static translate-x-1 duration-200 ease-linear ${
+          className={`flex-1 flex-col flex gap-4 p-4 rounded-lg relative bg-[#f4f4f4]  md:static translate-x-1 duration-200 ease-linear ${
             open
               ? "-left-[0%]"
               : " -left-[105%] translate-x-1 duration-200 ease-linear"
@@ -66,6 +71,11 @@ const Layout = ({ children }) => {
             <div>
               {Sidebar(<CgMenuGridR />, "Products", "products")}
               {Sidebar(<HiPlusCircle />, "Add Product", "addProduct")}
+              {Sidebar(
+                <MdSettingsInputComponent />,
+                "Product Components",
+                "productComponents"
+              )}
             </div>
           </div>
           <div className="w-full flex flex-col gap-4">
@@ -94,19 +104,18 @@ const Layout = ({ children }) => {
 
       <div className="flex-[4] flex-col flex gap-4">
         <div className="flex border-b pb-2 border-[#88888] items-center justify-between">
-          <input
-            type={"search"}
-            className="border-2 border-[#f4f4f4] py-1 px-2 rounded-full placeholder:text-primary max-w-md w-2/3 sm:w-full placeholder:p-2 placeholder:text-sm"
-            placeholder="Search"
-          />
+          <span className="secondary text-xl font-bold">E-commerce</span>
           <div className="flex items-center gap-4">
-            {/* <img
-              src={
-                "https://pbs.twimg.com/profile_images/1592354382640975873/0akVKsst_400x400.jpg"
-              }
-              alt="admin"
-              className="w-10 rounded-full"
-            /> */}
+            <div className="flex items-center gap-2 cursor-pointer">
+              <img
+                src={
+                  "https://pbs.twimg.com/profile_images/1592354382640975873/0akVKsst_400x400.jpg"
+                }
+                alt="admin"
+                className="w-10 rounded-full"
+              />
+              <span className="font-sans text-primary">Vishu Verma</span>
+            </div>
             <IoNotificationsSharp
               size={25}
               className="text-primary hover:secondary cursor-pointer"
