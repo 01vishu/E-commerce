@@ -2,7 +2,6 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Layout from "../../../components/admin/Layout";
 import BrandTable from "../../../components/admin/ProductComponent/Brand";
@@ -25,13 +24,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography component={"span"} variant={"body2"}>
-            {children}
-          </Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -68,25 +61,19 @@ export default function ProductComponects({
           <Tabs
             value={value}
             onChange={handleChange}
-            aria-label="basic tabs example"
+            // aria-label="basic tabs example"
+            TabIndicatorProps={{ sx: { display: "flex" } }}
+            sx={{
+              "& .MuiTabs-flexContainer": {
+                flexWrap: "wrap",
+              },
+            }}
           >
+            <Tab sx={{ fontWeight: 700 }} label="Brand" {...a11yProps(0)} />
+            <Tab sx={{ fontWeight: 700 }} label="Flavour" {...a11yProps(1)} />
+            <Tab sx={{ fontWeight: 700 }} label="Weight" {...a11yProps(2)} />
             <Tab
-              sx={{ fontWeight: 600, color: "#88888" }}
-              label="Brand"
-              {...a11yProps(0)}
-            />
-            <Tab
-              sx={{ fontWeight: 600, color: "#88888" }}
-              label="Flavour"
-              {...a11yProps(1)}
-            />
-            <Tab
-              sx={{ fontWeight: 600, color: "#88888" }}
-              label="Weight"
-              {...a11yProps(2)}
-            />
-            <Tab
-              sx={{ fontWeight: 600, color: "#88888" }}
+              sx={{ fontWeight: 700 }}
               label="Product Title"
               {...a11yProps(3)}
             />

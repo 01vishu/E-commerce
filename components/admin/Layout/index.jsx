@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
     <div className="flex gap-8">
       <div className="absolute  md:relative ">
         <div
-          className={`flex-1 flex-col flex gap-4 p-4 rounded-lg relative bg-[#f4f4f4]  md:static translate-x-1 duration-200 ease-linear ${
+          className={`flex-1 flex-col flex gap-4 p-4 rounded-lg relative z-50 bg-[#f4f4f4]  md:static translate-x-1 duration-200 ease-linear ${
             open
               ? "-left-[0%]"
               : " -left-[105%] translate-x-1 duration-200 ease-linear"
