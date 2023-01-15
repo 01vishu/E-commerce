@@ -1,6 +1,7 @@
 import { AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { Rating } from "@mui/material";
+import parse from 'html-react-parser'; 
 
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -133,9 +134,9 @@ const ProductInfo = ({ productData, variant }) => {
             </span>
           )}
         </div>
-        <p className="font-sans text-primary text-xs">
-          {productData.description.substring(0, 200)}
-        </p>
+        <div className="font-sans text-primary text-xs line-clamp-2">
+          {parse(productData.description.substring(0, 200))}
+        </div>
       </div>
       <div className="gap-2 flex flex-col py-4 border-b xl:w-3/4 border-[#88888]">
         <span className="text-lg">Options</span>

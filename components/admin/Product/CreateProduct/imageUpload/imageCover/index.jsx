@@ -1,14 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import { FiPlus } from "react-icons/fi";
+import { useEffect } from "react";
+
 const ImageCover = ({ imageCover, setImageCover }) => {
   const handleImageCover = (e) => {
-    const selectImage = e.target.files[0];
+    const selectImage = e.target.files[0];   
     const image = new FileReader();
     image.readAsDataURL(selectImage);
+    
     image.addEventListener("load", () => {
       setImageCover(image.result);
     });
   };
+  console.log(imageCover);
+  
+
   return (
     <div>
       {!imageCover ? (

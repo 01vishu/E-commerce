@@ -4,7 +4,6 @@ import Description from "../../components/ProductPage/Details/Description";
 import Reviews from "../../components/ProductPage/Details/Reviews";
 import ImagePreview from "../../components/ProductPage/ImagePreview";
 import ProductInfo from "../../components/ProductPage/ProductInfo";
-
 const ProductDetail = ({ data, variant, review }) => {
   console.log(data);
   const [selectDescription, setSelectDescription] = useState(true);

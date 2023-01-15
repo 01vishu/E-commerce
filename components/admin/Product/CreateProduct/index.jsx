@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   FilledInput,
   FormControl,
   InputAdornment,
@@ -7,12 +6,23 @@ import {
   ListItemText,
   MenuItem,
   Select,
-  TextareaAutosize,
   TextField,
 } from "@mui/material";
-import axios from "axios";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import ImageCover from "./imageUpload/imageCover";
+import { convertToRaw, EditorState } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import Images from "./imageUpload/Images";
+
+const RichTextEditor = dynamic(
+  import("react-draft-wysiwyg").then((module) => module.Editor),
+  { ssr: false }
+);
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import DescriptionImages from "./imageUpload/DescriptionImages";
+import axios from "axios";
+import Spiner from "../../../spiner";
 const initailValue = {
   name: "",
   brand: "",
@@ -21,11 +31,9 @@ const initailValue = {
   flavour: "",
   weight: "",
   availableQuantity: "",
-  description: "",
   price: "",
   priceDiscount: "",
   imageCover: "",
-  images: [],
   descriptionImages: [],
 };
 const CreateProduct = ({
@@ -36,9 +44,17 @@ const CreateProduct = ({
   ProductCategory,
   ProductSubCategory,
 }) => {
+  const [value, setValue] = useState(EditorState.createEmpty());
+
   const [imageCover, setImageCover] = useState("");
+  const [images, setImages] = useState([]);
+  const [descriptionImages, setDescriptionImages] = useState([]);
   const [product, setProduct] = useState(initailValue);
-  const {
+  const [loading, setLoading] = useState(false)
+  const data = convertToRaw(value.getCurrentContent());
+  const DescriptionMarkup = draftToHtml(data);
+
+  let {
     name,
     brand,
     category,
@@ -46,22 +62,44 @@ const CreateProduct = ({
     flavour,
     weight,
     availableQuantity,
-    description,
     price,
     priceDiscount,
-    images,
-    descriptionImages,
   } = product;
-  console.log(product);
   const onValueChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onEditorChange = (newState) => {
+    setValue(newState);
   };
+  const onSubmit = async (e) => {
+
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(`/api/admin/product`, {
+        name,
+        brand,
+        category,
+        subCategories,
+        flavour,
+        weight,
+        availableQuantity,
+        price,
+        priceDiscount,
+        descriptionImages,
+        description: DescriptionMarkup,
+        imageCover,
+        images,
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
+  {loading&&  <Spiner loading={loading}/>}
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="ProductName">Product Name</InputLabel>
@@ -229,25 +267,49 @@ const CreateProduct = ({
             type="number"
           />
         </FormControl>
-        <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
-          <TextareaAutosize
-            id="Description"
-            aria-label=""
-            minRows={3}
-            placeholder="Description"
-            style={{ border: "primary" }}
+        <FormControl
+          variant="filled"
+          sx={{ m: 1, minWidth: 120 }}
+        ></FormControl>
+      </div>
+      <div className="primary-bg my-4 p-1 rounded-md">
+        <RichTextEditor
+          editorState={value}
+          onEditorStateChange={onEditorChange}
+          toolbarClassName="toolbarClassName"
+          wrapperClassName="wrapperClassName"
+          editorClassName="editorClassName"
+        />
+      </div>
+
+      <h2 className="font-semibold text-primary text-xl"> Upload Images</h2>
+      <div className="flex flex-col lg:flex-row  my-4 gap-4">
+        <div className="flex flex-col gap-4">
+          <span className="text-lg font-medium secondary">Image Cover</span>
+          <ImageCover imageCover={imageCover} setImageCover={setImageCover} />
+        </div>
+        <div className="flex flex-col gap-4">
+          <span className="text-lg font-medium secondary">Images</span>
+
+          <Images images={images} setImages={setImages} />
+        </div>
+        <div className="flex flex-col gap-4">
+          <span className="text-lg font-medium secondary">
+            Description Images
+          </span>
+
+          <DescriptionImages
+            descriptionImages={descriptionImages}
+            setDescriptionImages={setDescriptionImages}
           />
-        </FormControl>
+        </div>
       </div>
-      <div className="flex flex-col items-center justify-center gap-4">
-        <ImageCover imageCover={imageCover} setImageCover={setImageCover} />
-        <button
-          className="p-2 flex items-center w-fit primary-bg cursor-pointer hover:secondary-bg"
-          onClick={onSubmit}
-        >
-          Create Product
-        </button>
-      </div>
+      <button
+        className="p-2 flex items-center w-3/4 mx-auto  justify-center primary-bg cursor-pointer hover:secondary-bg"
+        onClick={onSubmit}
+      >
+        Create Product
+      </button>
     </>
   );
 };
