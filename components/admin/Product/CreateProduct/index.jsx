@@ -14,7 +14,8 @@ import ImageCover from "./imageUpload/imageCover";
 import { convertToRaw, EditorState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import Images from "./imageUpload/Images";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const RichTextEditor = dynamic(
   import("react-draft-wysiwyg").then((module) => module.Editor),
   { ssr: false }
@@ -50,9 +51,11 @@ const CreateProduct = ({
   const [images, setImages] = useState([]);
   const [descriptionImages, setDescriptionImages] = useState([]);
   const [product, setProduct] = useState(initailValue);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const data = convertToRaw(value.getCurrentContent());
   const DescriptionMarkup = draftToHtml(data);
+  console.log(descriptionImages);
+  console.log(data);
 
   let {
     name,
@@ -73,10 +76,10 @@ const CreateProduct = ({
     setValue(newState);
   };
   const onSubmit = async (e) => {
-
+    setLoading(true);
     e.preventDefault();
     try {
-      const { data } = await axios.post(`/api/admin/product`, {
+      await axios.post(`/api/admin/product`, {
         name,
         brand,
         category,
@@ -91,15 +94,25 @@ const CreateProduct = ({
         imageCover,
         images,
       });
-      console.log(data);
+      toast.success("Product has been created!");
+      setLoading(false);
+      setProduct(initailValue);
+      setDescriptionImages([]);
+      setImageCover("");
+      setImages([]);
     } catch (error) {
+      setLoading(false);
+      if (error) {
+        toast.error(error.message);
+      }
       console.log(error);
     }
   };
 
   return (
     <>
-  {loading&&  <Spiner loading={loading}/>}
+      {loading && <Spiner loading={loading} />}
+      <ToastContainer />
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="ProductName">Product Name</InputLabel>

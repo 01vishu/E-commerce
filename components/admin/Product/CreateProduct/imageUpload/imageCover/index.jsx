@@ -1,19 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { useEffect } from "react";
-
+const MAX_SIZE = 0.1 * 1024 * 1024;
 const ImageCover = ({ imageCover, setImageCover }) => {
+  const [error, setError] = useState("");
   const handleImageCover = (e) => {
-    const selectImage = e.target.files[0];   
-    const image = new FileReader();
-    image.readAsDataURL(selectImage);
-    
-    image.addEventListener("load", () => {
-      setImageCover(image.result);
-    });
+    const selectImage = e.target.files[0];
+    if (selectImage.size < MAX_SIZE) {
+      const image = new FileReader();
+      image.readAsDataURL(selectImage);
+
+      image.addEventListener("load", () => {
+        setImageCover(image.result);
+      });
+      setError("");
+    } else {
+      setError("Image Size should be less than 100KB!");
+    }
   };
-  console.log(imageCover);
-  
 
   return (
     <div>
@@ -34,6 +38,7 @@ const ImageCover = ({ imageCover, setImageCover }) => {
             accept="image/png,image/jpeg,image/webp"
             multiple={false}
           />
+          {error && <span className="secondary text-sm">{error}</span>}
         </>
       ) : (
         <div className="max-w-xs flex flex-col gap-2">

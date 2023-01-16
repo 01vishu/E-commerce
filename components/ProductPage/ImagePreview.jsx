@@ -19,7 +19,7 @@ const ImagePreview = ({ product }) => {
           alt={""}
           width={500}
           height={500}
-          className="mix-blend-multiply"
+          className="mix-blend-multiply aspect-square"
         />
       </div>
       <div className="flex items-center justify-center">
@@ -43,13 +43,19 @@ const ImagePreview = ({ product }) => {
             {product?.images?.map((image, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className={` m-1 p-1 border-2 border-[#f4f4f4] flex max-w-[80px] max-h-20 cursor-pointer items-center justify-center ${
+                  className={` m-1 p-1 border-2 border-[#f4f4f4] flex max-w-[80px]  aspect-square max-h-20 cursor-pointer items-center justify-center ${
                     activeImg === image && "border-[#8d735f] border"
                   }`}
                   key={index}
                   onClick={() => setActiveImg(image)}
                 >
-                  <Image src={image} alt={""} width={80} height={80} />
+                  <Image
+                    src={image}
+                    alt={""}
+                    width={80}
+                    height={80}
+                    className="aspect-square"
+                  />
                 </div>
               </SwiperSlide>
             ))}

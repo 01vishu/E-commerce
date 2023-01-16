@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import parse from 'html-react-parser'; 
+import parse from "html-react-parser";
 
 const Description = ({ product }) => {
   return (
@@ -15,7 +15,7 @@ const Description = ({ product }) => {
             alt={""}
             width={430}
             height={430}
-            className="mix-blend-multiply"
+            className="mix-blend-multiply aspect-square"
           />
         </div>
       </div>

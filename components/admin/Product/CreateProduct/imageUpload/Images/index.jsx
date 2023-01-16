@@ -1,16 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
+const MAX_SIZE = 0.1 * 1024 * 1024;
+
 const Images = ({ images, setImages }) => {
+  const [error, setError] = useState("");
   const handleImages = (e) => {
     const selectImage = e.target.files;
     const selectImagesArray = Array.from(selectImage);
     const imagesArray = selectImagesArray.map((image) => {
-      const encodeImage = new FileReader();
-      encodeImage.readAsDataURL(image);
-      encodeImage.addEventListener("load", () => {
-        setImages((prev) => prev.concat(encodeImage.result));
-      });
+      if (image.size < MAX_SIZE) {
+        const encodeImage = new FileReader();
+        encodeImage.readAsDataURL(image);
+        encodeImage.addEventListener("load", () => {
+          setImages((prev) => prev.concat(encodeImage.result));
+        });
+      } else {
+        return setError("Image size should be less than 100KB");
+      }
     });
+    setError("");
   };
   return (
     <>
@@ -31,6 +40,7 @@ const Images = ({ images, setImages }) => {
             accept="image/png,image/jpeg,image/webp"
             multiple={true}
           />
+          {error && <span className="secondary text-sm">{error}</span>}
         </div>
 
         {images.length > 0 ? (
