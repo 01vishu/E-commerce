@@ -14,6 +14,7 @@ const SaleProduct = () => {
             width={100}
             height={100}
             alt=""
+            priority={false}
             className="mix-blend-multiply"
           />
         </div>

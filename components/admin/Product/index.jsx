@@ -4,6 +4,7 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import { useState } from "react";
 import axios from "axios";
 import AlertDialog from "../../DialogPopup";
+import Image from "next/image";
 const Product = ({ data }) => {
   const [open, setOpen] = useState(false);
   const handleDelete = async (id) => {
@@ -34,10 +35,13 @@ const Product = ({ data }) => {
         )}
         <div className="flex sm:flex-col gap-2">
           <div className="flex item-center primary-bg justify-center">
-            <img
+            <Image
               src={data.imageCover}
               alt="imageCover"
+              width={150}
+              height={150}
               className="aspect-square max-w-[150px] mix-blend-multiply"
+              priority={false}
             />
           </div>
           <div className="flex gap-2 flex-col">

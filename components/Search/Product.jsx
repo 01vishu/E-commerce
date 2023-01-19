@@ -13,6 +13,7 @@ const Product = ({ data }) => {
             height={150}
             alt=""
             className="mix-blend-multiply"
+            priority={false}
           />
         </div>
       </div>

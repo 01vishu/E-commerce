@@ -8,13 +8,14 @@ const Product = (product) => {
   return (
     <Link href={`/shop/${productData.slug}`}>
       <div className="border-2 p-2 rounded  border-[#F4F4F4]">
-        <div className="primary-bg relative flex items-center justify-center">
+        <div className="primary-bg relative  flex items-center justify-center">
           <Image
             src={productData.imageCover}
             width={250}
             height={250}
             alt={"productData"}
             className="mix-blend-multiply"
+            priority={false}
           />
           <div className="secondary-bg absolute text-sm top-0 right-0 py-1 px-2 rounded">
             New

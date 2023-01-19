@@ -1,12 +1,25 @@
 import React from "react";
+import CategoryTable from "../../../components/admin/category";
 import Layout from "../../../components/admin/Layout";
+import Category from "../../../model/Category";
 
-const Category = () => {
+const Categories = ({ categories }) => {
   return (
     <div>
-      <Layout>Category</Layout>
+      <Layout>
+        <CategoryTable categories={categories} />
+      </Layout>
     </div>
   );
 };
+export async function getServerSideProps(context) {
+  const categories = await Category.find();
 
-export default Category;
+  return {
+    props: {
+      categories: JSON.parse(JSON.stringify(categories)),
+    },
+  };
+}
+
+export default Categories;

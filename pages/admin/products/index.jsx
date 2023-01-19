@@ -24,7 +24,9 @@ export async function getServerSideProps(context) {
       .join("&");
   }
   const query = objectToQueryString(context.query);
-  const response = await axios.get(`${process.env.URL}/api/product?${query}`);
+  const response = await axios.get(
+    `${process.env.URL}/api/product?${query}&fields=name,slug,brand,price,priceDiscount,imageCover,flavour,weight,availableQuantity`
+  );
   return {
     props: { data: response.data.data },
   };

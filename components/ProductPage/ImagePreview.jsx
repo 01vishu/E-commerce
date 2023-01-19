@@ -13,13 +13,14 @@ const ImagePreview = ({ product }) => {
   const [activeImg, setActiveImg] = useState(product?.imageCover);
   return (
     <div className="flex  flex-1 flex-col">
-      <div className="m-1 flex sm:min-w-xs items-center   justify-center primary-bg">
+      <div className="m-1 flex sm:min-w-xs items-center justify-center primary-bg">
         <Image
           src={activeImg}
           alt={""}
           width={500}
           height={500}
           className="mix-blend-multiply aspect-square"
+          priority={false}
         />
       </div>
       <div className="flex items-center justify-center">
@@ -55,6 +56,7 @@ const ImagePreview = ({ product }) => {
                     width={80}
                     height={80}
                     className="aspect-square"
+                    priority={false}
                   />
                 </div>
               </SwiperSlide>

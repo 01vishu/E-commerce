@@ -1,12 +1,23 @@
 import React from "react";
 import Layout from "../../../components/admin/Layout";
-
-const SubCategory = () => {
+import SubCategoryTable from "../../../components/admin/subCategory";
+import SubCategory from "../../../model/SubCategory";
+const SubCategories = ({ subCategories }) => {
   return (
     <div>
-      <Layout>Sub Category</Layout>
+      <Layout>
+        <SubCategoryTable subCategories={subCategories} />
+      </Layout>
     </div>
   );
 };
+export async function getServerSideProps(context) {
+  const subCategories = await SubCategory.find();
 
-export default SubCategory;
+  return {
+    props: {
+      subCategories: JSON.parse(JSON.stringify(subCategories)),
+    },
+  };
+}
+export default SubCategories;
