@@ -59,7 +59,7 @@ const ProductList = (product) => {
       >
         <div className={`flex items-center gap-4 flex-wrap justify-center `}>
           {product.product.map((item, index) => (
-            <>
+            <div key={index}>
               {product.product.length > 5 ? (
                 <SwiperSlide key={index}>
                   <Product product={item} key={item._id} />
@@ -67,7 +67,7 @@ const ProductList = (product) => {
               ) : (
                 <Product product={item} key={item._id} />
               )}
-            </>
+            </div>
           ))}
         </div>
       </Swiper>
