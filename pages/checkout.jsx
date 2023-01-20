@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import User from "../model/User";
 import Cart from "../model/Cart";
 import mongoose from "mongoose";
-import Shipping from "../components/checkout/shipping";
+import Shipping from "../components/checkout/Shipping";
 import Payment from "../components/checkout/payment";
 import Summary from "../components/checkout/Summary";
 
