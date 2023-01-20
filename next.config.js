@@ -6,14 +6,12 @@ const nextConfig = {
     includePaths: [path.join(__dirname), "styles"],
     prependData: `@import "./base.scss";`,
   },
-  experimental: {
-    concurrentFeatures: true,
-  },
+
   env: {
     BASE_URL:
-      process.env.NODE_ENV !== "production"
-        ? "http://localhost:3000"
-        : "https://e-commerce-bice-nine.vercel.app",
+      process.env.NODE_ENV === "production"
+        ? "https://e-commerce-bice-nine.vercel.app"
+        : "http://localhost:3000",
   },
   images: {
     domains: [
