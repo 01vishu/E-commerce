@@ -10,7 +10,10 @@ const nextConfig = {
   //   concurrentFeatures: true,
   // },
   env: {
-    BASE_URL: "http://localhost:3000",
+    BASE_URL:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://e-commerce-bice-nine.vercel.app",
   },
   images: {
     domains: [
