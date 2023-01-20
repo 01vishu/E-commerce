@@ -11,7 +11,7 @@ const nextConfig = {
   // },
   env: {
     BASE_URL:
-      process.env.NODE_ENV === "development"
+      process.env.NODE_ENV !== "production"
         ? "http://localhost:3000"
         : "https://e-commerce-bice-nine.vercel.app",
   },
