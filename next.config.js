@@ -6,7 +6,9 @@ const nextConfig = {
     includePaths: [path.join(__dirname), "styles"],
     prependData: `@import "./base.scss";`,
   },
-
+  experimental: {
+    concurrentFeatures: true,
+  },
   env: {
     BASE_URL:
       process.env.NODE_ENV !== "production"
