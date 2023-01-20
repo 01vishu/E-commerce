@@ -1,7 +1,7 @@
 import { AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { Rating } from "@mui/material";
-import parse from 'html-react-parser'; 
+import parse from "html-react-parser";
 
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
