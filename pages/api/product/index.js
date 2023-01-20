@@ -4,7 +4,10 @@ import APIFeatures from "../../../utils/ApiFeatures";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
-      const features = new APIFeatures(Product.find(), req.query)
+      const features = new APIFeatures(
+        Product.find().select("-images -descriptionImages"),
+        req.query
+      )
         .search()
         .filter()
         .sort()

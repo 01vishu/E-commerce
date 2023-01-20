@@ -4,8 +4,12 @@ import { AiFillCloseCircle, AiOutlineFilter } from "react-icons/ai";
 import FilterMenu from "../../components/Search/FilterMenu";
 import ProductList from "../../components/Search/ProudctList";
 import SaleProductList from "../../components/Search/SaleProductList";
-
-const Shop = ({ data }) => {
+import Brand from "../../model/Brand";
+import Category from "../../model/Category";
+import SubCategory from "../../model/SubCategory";
+import Weight from "../../model/Weight";
+import Flavour from "../../model/Flavour";
+const Shop = ({ data, brand, category, subCategory, flavour, weight }) => {
   const [nav, setNav] = useState(false);
   const handleNav = () => {
     setNav(!nav);
@@ -28,6 +32,11 @@ const Shop = ({ data }) => {
             max={20000}
             step={100}
             priceCap={1000}
+            brand={brand}
+            category={category}
+            subCategory={subCategory}
+            flavour={flavour}
+            weight={weight}
           />
         </div>
         <div className="flex items-center gap-4">
@@ -60,6 +69,11 @@ const Shop = ({ data }) => {
             max={20000}
             step={100}
             priceCap={1000}
+            brand={brand}
+            category={category}
+            subCategory={subCategory}
+            flavour={flavour}
+            weight={weight}
           />
           <SaleProductList />
         </div>
@@ -76,8 +90,21 @@ export async function getServerSideProps(context) {
   }
   const query = objectToQueryString(context.query);
   const response = await axios.get(`${process.env.URL}/api/product?${query}`);
+  const brand = await Brand.find().distinct("name");
+  const category = await Category.find().distinct("name");
+  const subCategory = await SubCategory.find().distinct("name");
+  const weight = await Weight.find().distinct("name");
+  const flavour = await Flavour.find().distinct("name");
+  console.log(brand);
   return {
-    props: { data: response.data },
+    props: {
+      data: response.data,
+      brand: JSON.parse(JSON.stringify(brand)),
+      category: JSON.parse(JSON.stringify(category)),
+      subCategory: JSON.parse(JSON.stringify(subCategory)),
+      weight: JSON.parse(JSON.stringify(weight)),
+      flavour: JSON.parse(JSON.stringify(flavour)),
+    },
   };
 }
 

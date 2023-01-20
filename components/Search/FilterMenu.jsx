@@ -1,6 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 
-const FilterMenu = ({ initialMin, initialMax, min, max, step, priceCap }) => {
+const FilterMenu = ({
+  initialMin,
+  initialMax,
+  min,
+  max,
+  step,
+  priceCap,
+  brand,
+  category,
+  subCategory,
+  flavour,
+  weight,
+}) => {
+  console.log(weight);
   const progressRef = useRef(null);
   const [minValue, setMinValue] = useState(initialMin);
   const [maxValue, setMaxValue] = useState(initialMax);
@@ -96,51 +109,68 @@ const FilterMenu = ({ initialMin, initialMax, min, max, step, priceCap }) => {
           <button className="px-6 py-2 bg-black text-white">Filter</button>
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <span className="font-medium">WEIGHT OPTIONS</span>
+      <div className="flex flex-col gap-4 border-t-2 pt-2 border-[#f4f4f4]">
+        <span className="font-semibold">WEIGHT OPTIONS</span>
         <div className="flex flex-wrap gap-4">
-          <span className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border border-[#8D735F]">
-            0.5
-          </span>
-          <span className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border">
-            1.1
-          </span>
-          <span className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border">
-            2.2
-          </span>
-          <span className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border">
-            3.3
-          </span>
-          <span className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border">
-            4.4
-          </span>
-          <span className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border">
-            5.5
-          </span>
-          <span className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border">
-            6.6
-          </span>
+          {weight.map((w, i) => {
+            return (
+              <span
+                key={i}
+                className="primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full"
+              >
+                {w}
+              </span>
+            );
+          })}
         </div>
       </div>
-      <div className="flex flex-col gap-4">
-        <span className="font-medium">FLAVOUR OPTIONS</span>
-        <div>
-          <div className="flex items-center justify-between">
-            <span>Chocolate</span>
-            <span className="font-light">(25)</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>Chocolate</span>
-            <span className="font-light">(25)</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>Chocolate</span>
-            <span className="font-light">(25)</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>Chocolate</span>
-            <span className="font-light">(25)</span>
-          </div>
+      <div className="flex flex-col gap-4 border-t-2 pt-2 border-[#f4f4f4]">
+        <span className="font-semibold">FLAVOUR OPTIONS</span>
+        <div className="flex flex-col gap-2">
+          {flavour.map((f, i) => {
+            return (
+              <div key={i} className="flex items-center justify-between">
+                <span className="font-sans">{f}</span>
+                <span className="font-light">(25)</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 border-t-2 pt-2 border-[#f4f4f4]">
+        <span className="font-semibold">Brand</span>
+        <div className="flex flex-col gap-2">
+          {brand.map((f, i) => {
+            return (
+              <div key={i} className="flex items-center justify-between">
+                <span className="font-sans">{f}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 border-t-2 pt-2 border-[#f4f4f4]">
+        <span className="font-semibold">Category</span>
+        <div className="flex flex-col gap-2">
+          {category.map((f, i) => {
+            return (
+              <div key={i} className="flex items-center justify-between">
+                <span className="font-sans">{f}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 border-t-2 pt-2 border-[#f4f4f4]">
+        <span className="font-semibold">Sub Category</span>
+        <div className="flex flex-col gap-2">
+          {subCategory.map((f, i) => {
+            return (
+              <div key={i} className="flex items-center justify-between">
+                <span className="font-sans">{f}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
