@@ -45,7 +45,7 @@ export async function getServerSideProps(context) {
   if (!mongoose.connections[0].readyState) {
     mongoose.connect(process.env.MONGO_URI);
   }
-
+  //
   return {
     props: {},
   };
