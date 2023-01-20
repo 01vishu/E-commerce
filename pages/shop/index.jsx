@@ -9,6 +9,7 @@ import Category from "../../model/Category";
 import SubCategory from "../../model/SubCategory";
 import Weight from "../../model/Weight";
 import Flavour from "../../model/Flavour";
+import mongoose from "mongoose";
 const Shop = ({ data, brand, category, subCategory, flavour, weight }) => {
   const [nav, setNav] = useState(false);
   const handleNav = () => {
@@ -83,6 +84,9 @@ const Shop = ({ data, brand, category, subCategory, flavour, weight }) => {
   );
 };
 export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    mongoose.connect(process.env.MONGO_URI);
+  }
   function objectToQueryString(obj) {
     return Object.keys(obj)
       .map((key) => key + "=" + obj[key])
