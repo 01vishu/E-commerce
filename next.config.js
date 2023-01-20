@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const path = require("path");
 const nextConfig = {
-  swcMinify: false,
+  swcMinify: true,
   sassOptions: {
     includePaths: [path.join(__dirname), "styles"],
     prependData: `@import "./base.scss";`,
   },
-  experimental: {
-    concurrentFeatures: true,
-  },
+
   env: {
     BASE_URL:
       process.env.NODE_ENV !== "production"
