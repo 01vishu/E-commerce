@@ -45,16 +45,7 @@ export async function getServerSideProps(context) {
   if (!mongoose.connections[0].readyState) {
     mongoose.connect(process.env.MONGO_URI);
   }
-  const { req } = context;
 
-  const session = await getSession({ req });
-  if (!session || session === null) {
-    return {
-      redirect: {
-        destination: process.env.URL,
-      },
-    };
-  }
   return {
     props: {},
   };
