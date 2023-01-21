@@ -1,3 +1,5 @@
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 import {
   FilledInput,
   FormControl,
@@ -11,16 +13,16 @@ import {
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import ImageCover from "./imageUpload/imageCover";
-import { convertToRaw, EditorState } from "draft-js";
+import { convertToRaw, Editor, EditorState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import Images from "./imageUpload/Images";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 const RichTextEditor = dynamic(
-  import("react-draft-wysiwyg").then((module) => module.Editor),
+  () => import("react-draft-wysiwyg").then((module) => module.Editor),
   { ssr: false }
 );
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import DescriptionImages from "./imageUpload/DescriptionImages";
 import axios from "axios";
 import Spiner from "../../../spiner";
