@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillCloseCircle, AiOutlineFilter } from "react-icons/ai";
 import FilterMenu from "../../components/Search/FilterMenu";
 import ProductList from "../../components/Search/ProudctList";
@@ -10,13 +10,25 @@ import SubCategory from "../../model/SubCategory";
 import Weight from "../../model/Weight";
 import Flavour from "../../model/Flavour";
 import mongoose from "mongoose";
-// import APIFeatures from "../../utils/ApiFeatures";
-// import Product from "../../model/Product";
-const Shop = ({ data, brand, category, subCategory, flavour, weight }) => {
+const Shop = ({ Query, brand, category, subCategory, flavour, weight }) => {
   const [nav, setNav] = useState(false);
   const handleNav = () => {
     setNav(!nav);
   };
+  const [data, setdata] = useState("");
+  useEffect(() => {
+    const loadData = async () => {
+      function objectToQueryString(obj) {
+        return Object.keys(obj)
+          .map((key) => key + "=" + obj[key])
+          .join("&");
+      }
+      const query = objectToQueryString(Query);
+      const response = await axios.get(`/api/product?${query}`);
+      setdata(response.data);
+    };
+    loadData();
+  }, []);
   return (
     <section>
       <div className="flex justify-between items-center">
@@ -89,25 +101,7 @@ export async function getServerSideProps(context) {
   if (!mongoose.connections[0].readyState) {
     mongoose.connect(process.env.MONGO_URI);
   }
-  function objectToQueryString(obj) {
-    return Object.keys(obj)
-      .map((key) => key + "=" + obj[key])
-      .join("&");
-  }
-  const query = objectToQueryString(context.query);
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product?${query}`
-  );
-  // const response = new APIFeatures(
-  //   Product.find().select("-images -descriptionImages"),
-  //   { query }
-  // )
-  //   .search()
-  //   .filter()
-  //   .sort()
-  //   .limitFields()
-  //   .paginate();
-  // const products = await response.query;
+  const Query = context.query;
   const brand = await Brand.find().distinct("name");
   const category = await Category.find().distinct("name");
   const subCategory = await SubCategory.find().distinct("name");
@@ -115,7 +109,7 @@ export async function getServerSideProps(context) {
   const flavour = await Flavour.find().distinct("name");
   return {
     props: {
-      data: JSON.parse(JSON.stringify(response.data.data)),
+      Query,
       brand: JSON.parse(JSON.stringify(brand)),
       category: JSON.parse(JSON.stringify(category)),
       subCategory: JSON.parse(JSON.stringify(subCategory)),

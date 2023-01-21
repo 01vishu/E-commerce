@@ -13,7 +13,6 @@ const FilterMenu = ({
   flavour,
   weight,
 }) => {
-  console.log(weight);
   const progressRef = useRef(null);
   const [minValue, setMinValue] = useState(initialMin);
   const [maxValue, setMaxValue] = useState(initialMax);
