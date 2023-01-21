@@ -7,20 +7,8 @@ const nextConfig = {
     prependData: `@import "./base.scss";`,
   },
 
-  env: {
-    BASE_URL:
-      process.env.NODE_ENV === "production"
-        ? "https://e-commerce-bice-nine.vercel.app"
-        : "http://localhost:3000",
-  },
   images: {
-    domains: [
-      "cdn.nutrabay.com",
-      "png2.cleanpng.com",
-      "e7.pngegg.com",
-      "www.pngegg.com",
-      "icon2.cleanpng.com",
-    ],
+    domains: ["cdn.nutrabay.com"],
   },
 };
 

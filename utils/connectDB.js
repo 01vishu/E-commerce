@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 const connectDB = (handler) => (req, res) => {
   mongoose.set("strictQuery", true);
+  mongoose.set("bufferCommands", false);
   if (mongoose.connections[0].readyState) {
     return handler(req, res);
   }

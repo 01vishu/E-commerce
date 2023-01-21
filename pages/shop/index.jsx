@@ -10,8 +10,8 @@ import SubCategory from "../../model/SubCategory";
 import Weight from "../../model/Weight";
 import Flavour from "../../model/Flavour";
 import mongoose from "mongoose";
-import APIFeatures from "../../utils/ApiFeatures";
-import Product from "../../model/Product";
+// import APIFeatures from "../../utils/ApiFeatures";
+// import Product from "../../model/Product";
 const Shop = ({ data, brand, category, subCategory, flavour, weight }) => {
   const [nav, setNav] = useState(false);
   const handleNav = () => {
@@ -95,19 +95,19 @@ export async function getServerSideProps(context) {
       .join("&");
   }
   const query = objectToQueryString(context.query);
-  // const response = await axios.get(
-  //   `http://localhost:3000/api/product?${query}`
-  // );
-  const response = new APIFeatures(
-    Product.find().select("-images -descriptionImages"),
-    { query }
-  )
-    .search()
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  const products = await response.query;
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/product?${query}`
+  );
+  // const response = new APIFeatures(
+  //   Product.find().select("-images -descriptionImages"),
+  //   { query }
+  // )
+  //   .search()
+  //   .filter()
+  //   .sort()
+  //   .limitFields()
+  //   .paginate();
+  // const products = await response.query;
   const brand = await Brand.find().distinct("name");
   const category = await Category.find().distinct("name");
   const subCategory = await SubCategory.find().distinct("name");
@@ -115,7 +115,7 @@ export async function getServerSideProps(context) {
   const flavour = await Flavour.find().distinct("name");
   return {
     props: {
-      data: JSON.parse(JSON.stringify(products)),
+      data: JSON.parse(JSON.stringify(response.data.data)),
       brand: JSON.parse(JSON.stringify(brand)),
       category: JSON.parse(JSON.stringify(category)),
       subCategory: JSON.parse(JSON.stringify(subCategory)),

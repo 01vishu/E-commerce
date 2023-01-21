@@ -31,7 +31,7 @@ const Navbar = () => {
   };
   const onSearch = () => {
     router.push(
-      `${process.env.BASE_URL}/shop/?search=${searchQurery
+      `${process.env.NEXT_PUBLIC_BASE_URL}/shop/?search=${searchQurery
         .split(" ")
         .join("+")}`
     );
