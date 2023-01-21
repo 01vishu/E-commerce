@@ -104,7 +104,7 @@ export async function getServerSideProps(context) {
   if (session !== null) {
     return {
       redirect: {
-        destination: process.env.NEXTAUTH_URL,
+        destination: process.env.NEXT_PUBLIC_BASE_URL,
       },
     };
   }
