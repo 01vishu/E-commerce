@@ -10,7 +10,7 @@ const ProductList = (product) => {
         Most Famous
       </span>
       <div className=" grid sm:grid-cols-2 gap-4 lg:grid-cols-3">
-        {product.product.map((item, index) => (
+        {product.product?.map((item, index) => (
           <Product productData={item} key={item._id} />
         ))}
       </div>

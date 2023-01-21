@@ -1,33 +1,29 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import FamousProduct from "../components/MostFamous/ProductList";
 import ProductList from "../components/Product/ProductList";
 import Slider from "../components/Slider/Slider";
-import mongoose from "mongoose";
-import Product from "../model/Product";
-export default function Home({ productData }) {
-  console.log("DATA", productData);
+export default function Home() {
+  const [productData, SetproductData] = useState("");
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await axios.get(`/api/product`);
+      SetproductData(response.data);
+    };
+    loadData();
+  }, []);
   return (
     <>
       <Slider />
       <div>
-        <ProductList product={productData} />
+        <ProductList product={productData?.data} />
       </div>
       <div className="primary-bg h-36 m-4">
         <div>
           <div className="">Image</div>
         </div>
       </div>
-      <FamousProduct product={productData} />
+      <FamousProduct product={productData?.data} />
     </>
   );
-}
-export async function getServerSideProps() {
-  if (!mongoose.connections[0].readyState) {
-    mongoose.connect(process.env.MONGO_URI);
-  }
-  const productData = await Product.find()
-    .select("name slug brand price priceDiscount imageCover flavour weight")
-    .limit(10);
-  return {
-    props: { productData: JSON.parse(JSON.stringify(productData)) },
-  };
 }

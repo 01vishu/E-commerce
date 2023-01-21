@@ -30,11 +30,7 @@ const Navbar = () => {
     setSearchQurery(e.target.value);
   };
   const onSearch = () => {
-    router.push(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/shop/?search=${searchQurery
-        .split(" ")
-        .join("+")}`
-    );
+    router.push(`/shop/?search=${searchQurery.split(" ").join("+")}`);
   };
   const handleNav = () => {
     setNav(!nav);

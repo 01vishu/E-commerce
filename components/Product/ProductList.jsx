@@ -10,7 +10,8 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper";
 const ProductList = (product) => {
-  console.log(product.product.length);
+  console.log(product);
+  console.log(product.product?.length);
   const [tab, setTab] = useState("");
   const toggleTab = (value) => {
     setTab(value);
@@ -58,9 +59,9 @@ const ProductList = (product) => {
         className="mySwiper"
       >
         <div className={`flex items-center gap-4 flex-wrap justify-center `}>
-          {product.product.map((item, index) => (
+          {product.product?.map((item, index) => (
             <div key={index}>
-              {product.product.length > 5 ? (
+              {product.product?.length > 5 ? (
                 <SwiperSlide key={index}>
                   <Product product={item} key={item._id} />
                 </SwiperSlide>

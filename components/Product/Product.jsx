@@ -6,7 +6,7 @@ import Link from "next/link";
 const Product = (product) => {
   const productData = product.product;
   return (
-    <Link href={`/shop/${productData.slug}`}>
+    <Link href={`/product/${productData.slug}`}>
       <div className="border-2 p-2 rounded  border-[#F4F4F4]">
         <div className="primary-bg relative  flex items-center justify-center">
           <Image
