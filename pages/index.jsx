@@ -20,7 +20,7 @@ export default function Home({ productData }) {
     </>
   );
 }
-export async function getServerSideProps() {
+export async function getStaticProps() {
   if (!mongoose.connections[0].readyState) {
     mongoose.connect(process.env.MONGO_URI);
   }
