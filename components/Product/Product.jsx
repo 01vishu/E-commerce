@@ -16,6 +16,7 @@ const Product = (product) => {
             alt={"productData"}
             className="mix-blend-multiply"
             priority={false}
+            loading="lazy"
           />
           <div className="secondary-bg absolute text-sm top-0 right-0 py-1 px-2 rounded">
             New

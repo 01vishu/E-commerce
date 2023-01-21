@@ -16,6 +16,7 @@ const Product = (product) => {
             height={100}
             className="mix-blend-multiply"
             priority={false}
+            loading="lazy"
           />
         </div>
         <div className="flex flex-[2] flex-col">

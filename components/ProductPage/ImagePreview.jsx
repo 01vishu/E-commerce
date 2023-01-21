@@ -21,6 +21,7 @@ const ImagePreview = ({ product }) => {
           height={500}
           className="mix-blend-multiply aspect-square"
           priority={false}
+          loading="lazy"
         />
       </div>
       <div className="flex items-center justify-center">
@@ -57,6 +58,7 @@ const ImagePreview = ({ product }) => {
                     height={80}
                     className="aspect-square"
                     priority={false}
+                    loading="lazy"
                   />
                 </div>
               </SwiperSlide>
