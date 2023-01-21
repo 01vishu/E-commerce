@@ -17,7 +17,7 @@
         "@reduxjs/toolkit": "^1.9.1",
         "@stripe/react-stripe-js": "^1.16.2",
         "@stripe/stripe-js": "^1.46.0",
-        "axios": "^1.2.1",
+        "axios": "^1.2.3",
         "bcrypt": "^5.1.0",
         "cloudinary": "^1.33.0",
         "crypto-js": "^4.1.1",
