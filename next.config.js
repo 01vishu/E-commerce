@@ -8,7 +8,7 @@ const nextConfig = {
   },
 
   images: {
-    domains: ["cdn.nutrabay.com"],
+    domains: ["cdn.nutrabay.com", "res.cloudinary.com"],
   },
 };
 

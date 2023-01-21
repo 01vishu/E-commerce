@@ -9,7 +9,7 @@ const Product = ({ data }) => {
   const [open, setOpen] = useState(false);
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`/api/admin/product/${data._id}`);
+      const res = await axios.delete(`/api/admin/product/${data?._id}`);
       toast.success(res.data.message);
       window.location.reload();
     } catch (error) {

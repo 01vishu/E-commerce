@@ -39,7 +39,7 @@ const initailValue = {
 };
 const CreateProduct = ({
   ProductBrands,
-  ProductTitle,
+
   ProductFlavour,
   ProductWeight,
   ProductCategory,
@@ -54,8 +54,6 @@ const CreateProduct = ({
   const [loading, setLoading] = useState(false);
   const data = convertToRaw(value.getCurrentContent());
   const DescriptionMarkup = draftToHtml(data);
-  console.log(descriptionImages);
-  console.log(data);
 
   let {
     name,
@@ -115,25 +113,16 @@ const CreateProduct = ({
       <ToastContainer />
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="ProductName">Product Name</InputLabel>
-          <Select
-            labelId="ProductName"
+          <TextField
+            label="Product Name"
+            type={"text"}
+            variant="filled"
             id="ProductName"
             value={name}
             name="name"
             onChange={onValueChange}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {ProductTitle.map((title) => {
-              return (
-                <MenuItem key={title._id} value={title.name}>
-                  {title.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
+            required
+          />
         </FormControl>
         <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="Brand">Brand</InputLabel>
@@ -143,6 +132,7 @@ const CreateProduct = ({
             value={brand}
             name="brand"
             onChange={onValueChange}
+            required
           >
             <MenuItem value="">
               <em>None</em>
@@ -164,6 +154,7 @@ const CreateProduct = ({
             value={category}
             name="category"
             onChange={onValueChange}
+            required
           >
             <MenuItem value="">
               <em>None</em>
@@ -208,6 +199,7 @@ const CreateProduct = ({
             value={flavour}
             name="flavour"
             onChange={onValueChange}
+            required
           >
             <MenuItem value="">
               <em>None</em>
@@ -229,6 +221,7 @@ const CreateProduct = ({
             value={weight}
             name="weight"
             onChange={onValueChange}
+            required
           >
             <MenuItem value="">
               <em>None</em>
@@ -251,6 +244,7 @@ const CreateProduct = ({
             name="availableQuantity"
             onChange={onValueChange}
             type="number"
+            required
           />
         </FormControl>
         <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
@@ -264,6 +258,7 @@ const CreateProduct = ({
             name="price"
             onChange={onValueChange}
             type="number"
+            required
           />
         </FormControl>
         <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
@@ -278,6 +273,7 @@ const CreateProduct = ({
             name="priceDiscount"
             onChange={onValueChange}
             type="number"
+            required
           />
         </FormControl>
         <FormControl

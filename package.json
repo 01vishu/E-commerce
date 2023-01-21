@@ -26,8 +26,6 @@
         "draftjs-to-html": "^0.9.1",
         "googleapis": "^110.0.0",
         "html-react-parser": "^3.0.7",
-        "imagemin": "^8.0.1",
-        "imagemin-mozjpeg": "^10.0.0",
         "jsonwebtoken": "^8.5.1",
         "moment": "^2.29.4",
         "mongodb": "^4.13.0",

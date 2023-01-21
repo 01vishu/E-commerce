@@ -18,7 +18,6 @@ const ImageCover = ({ imageCover, setImageCover }) => {
       setError("Image Size should be less than 100KB!");
     }
   };
-
   return (
     <div>
       {!imageCover ? (
