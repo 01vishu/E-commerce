@@ -104,7 +104,12 @@ const Layout = ({ children }) => {
 
       <div className="flex-[4] flex-col flex gap-4">
         <div className="flex border-b pb-2 border-[#88888] items-center justify-between">
-          <span className="secondary text-xl font-bold">E-commerce</span>
+          <span
+            className="secondary text-xl font-bold cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            E-commerce
+          </span>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 cursor-pointer">
               <img

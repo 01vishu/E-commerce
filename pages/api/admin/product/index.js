@@ -75,7 +75,7 @@ const handler = async (req, res) => {
           price: Number(price),
           priceDiscount: Number(priceDiscount),
           imageCover: imageCoverUrl,
-          images: descriptionImagesUrl,
+          images: imagesUrl,
           descriptionImages: descriptionImagesUrl,
           description,
         });

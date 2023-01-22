@@ -20,7 +20,6 @@ const Products = ({ Query }) => {
     };
     loadData();
   }, []);
-  console.log(data);
   return (
     <>
       <Layout>

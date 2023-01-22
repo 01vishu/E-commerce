@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -10,19 +10,24 @@ import "swiper/css/free-mode";
 // import required modules
 import { FreeMode } from "swiper";
 const ImagePreview = ({ product }) => {
-  const [activeImg, setActiveImg] = useState(product?.imageCover);
+  const [activeImg, setActiveImg] = useState("");
+  useEffect(() => {
+    setActiveImg(product?.imageCover);
+  }, [product]);
   return (
     <div className="flex  flex-1 flex-col">
       <div className="m-1 flex sm:min-w-xs items-center justify-center primary-bg">
-        <Image
-          src={activeImg}
-          alt={""}
-          width={500}
-          height={500}
-          className="mix-blend-multiply aspect-square"
-          priority={false}
-          loading="lazy"
-        />
+        {product && (
+          <Image
+            src={!activeImg ? product?.imageCover : activeImg}
+            alt={""}
+            width={500}
+            height={500}
+            className="mix-blend-multiply aspect-square"
+            priority={false}
+            loading="lazy"
+          />
+        )}
       </div>
       <div className="flex items-center justify-center">
         <div className="flex max-w-sm lg:max-w-md  justify-center items-center ">

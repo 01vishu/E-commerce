@@ -1,14 +1,26 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Description from "../../components/ProductPage/Details/Description";
 import Reviews from "../../components/ProductPage/Details/Reviews";
 import ImagePreview from "../../components/ProductPage/ImagePreview";
 import ProductInfo from "../../components/ProductPage/ProductInfo";
-import Product from "../../model/Product";
-const ProductDetail = ({ data, variant, review }) => {
+const ProductDetail = ({ querySlug }) => {
   const [selectDescription, setSelectDescription] = useState(true);
   const [selectReview, setSelectReview] = useState(false);
-  const productData = data;
+  const [productData, setproductData] = useState(null);
+  const [variant, setVariant] = useState(null);
+  // const productData = data;
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await axios.get(`/api/product/${querySlug}`);
+      const variant = await axios.get(`/api/product/variant/${querySlug}`);
+      setproductData(response.data.data);
+      setVariant(variant.data.data);
+    };
+    loadData();
+  }, []);
+  console.log("Data", productData);
+  console.log("Varient", variant);
   const handleSelectDescription = () => {
     setSelectDescription(true);
     setSelectReview(false);
@@ -48,32 +60,30 @@ const ProductDetail = ({ data, variant, review }) => {
 };
 
 export async function getServerSideProps(context) {
-  const response = await Product.findOne({ slug: context.query.slug });
-  // const response = await axios.get(
-  //   `${process.env.URL}/api/product/${context.query.slug}`
-  // );
-  // const variant = await axios.get(
-  //   `${process.env.URL}/api/product/variant/${context.query.slug}`
-  // );
-  let product = await Product.findOne({ slug: context.query.slug });
+  // const response = await axios.get(`/api/product/${context.query.slug}`);
+  // const variant = await axios.get(`/api/product/variant/${context.query.slug}`);
+  const querySlug = context.query.slug;
+  // const response = await Product.findOne({ slug: context.query.slug });
+  // let product = await Product.findOne({ slug: context.query.slug });
 
-  let variants = await Product.find({
-    name: product.name,
-  });
-  let flavourWeight = {};
-  for (let item of variants) {
-    if (Object.keys(flavourWeight).includes(item.flavour)) {
-      flavourWeight[item.flavour][item.weight] = { slug: item.slug };
-    } else {
-      flavourWeight[item.flavour] = {};
-      flavourWeight[item.flavour][item.weight] = { slug: item.slug };
-    }
-  }
+  // let variants = await Product.find({
+  //   name: product.name,
+  // });
+  // let flavourWeight = {};
+  // for (let item of variants) {
+  //   if (Object.keys(flavourWeight).includes(item.flavour)) {
+  //     flavourWeight[item.flavour][item.weight] = { slug: item.slug };
+  //   } else {
+  //     flavourWeight[item.flavour] = {};
+  //     flavourWeight[item.flavour][item.weight] = { slug: item.slug };
+  //   }
+  // }
 
   return {
     props: {
-      data: JSON.parse(JSON.stringify(response)),
-      variant: flavourWeight,
+      querySlug,
+      // data: JSON.parse(JSON.stringify(response)),
+      // variant: flavourWeight,
     },
   };
 }

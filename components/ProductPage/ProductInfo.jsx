@@ -11,48 +11,55 @@ const ProductInfo = ({ productData, variant }) => {
   const [qty, setQty] = useState(1);
   const router = useRouter();
   const dispatch = useDispatch();
-  const variantSlug = Object.entries(variant).map(([key, value]) => ({
-    [key]: value,
-  }));
-  const flavourOption = variantSlug.map((flavour) => {
-    const key = Object.keys(flavour);
-    const value = Object.keys(flavour[key]);
-    return (
-      <button
-        className={
-          productData.flavour == Object.keys(flavour)
-            ? "secondary-bg text-sm text-white font-medium py-2 px-4 border border-[#8D735F]"
-            : "text-sm font-medium py-2 px-4 border border-[#88888]"
-        }
-        key={flavour[key][value[0]].slug}
-        onClick={() => {
-          router.push(`/shop/${flavour[key][value[0]].slug}`), setQty(1);
-        }}
-      >
-        {key.toString().toLocaleUpperCase()}
-      </button>
-    );
-  });
-  const weightOption = Object.keys(variant[productData.flavour]).map(
-    (weight, index) => {
-      const slug = variant[productData.flavour][weight].slug;
-      return (
-        <button
-          className={
-            productData.weight == weight
-              ? `secondary-bg  w-8 h-8 flex items-center text-sm font-medium text-white justify-center rounded-full border border-[#8D735F]`
-              : `primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border`
-          }
-          key={index}
-          onClick={() => {
-            router.push(`/shop/${slug}`), setQty(1);
-          }}
-        >
-          {weight}
-        </button>
-      );
-    }
-  );
+  const variantSlug =
+    variant != null
+      ? Object.entries(variant).map(([key, value]) => ({
+          [key]: value,
+        }))
+      : "";
+  const flavourOption =
+    variant != null
+      ? variantSlug.map((flavour) => {
+          const key = Object.keys(flavour);
+          const value = Object.keys(flavour[key]);
+          return (
+            <button
+              className={
+                productData.flavour == Object.keys(flavour)
+                  ? "secondary-bg text-sm text-white font-medium py-2 px-4 border border-[#8D735F]"
+                  : "text-sm font-medium py-2 px-4 border border-[#88888]"
+              }
+              key={flavour[key][value[0]].slug}
+              onClick={() => {
+                router.push(`/shop/${flavour[key][value[0]].slug}`), setQty(1);
+              }}
+            >
+              {key.toString().toLocaleUpperCase()}
+            </button>
+          );
+        })
+      : "";
+  const weightOption =
+    variant != null
+      ? Object?.keys(variant[productData?.flavour]).map((weight, index) => {
+          const slug = variant[productData.flavour][weight].slug;
+          return (
+            <button
+              className={
+                productData.weight == weight
+                  ? `secondary-bg  w-8 h-8 flex items-center text-sm font-medium text-white justify-center rounded-full border border-[#8D735F]`
+                  : `primary-bg w-8 h-8 flex items-center text-sm justify-center rounded-full border`
+              }
+              key={index}
+              onClick={() => {
+                router.push(`/shop/${slug}`), setQty(1);
+              }}
+            >
+              {weight}
+            </button>
+          );
+        })
+      : "";
   const handleAddToCart = () => {
     const {
       name,
@@ -91,7 +98,7 @@ const ProductInfo = ({ productData, variant }) => {
     <div className="flex-1">
       <div className=" gap-2 flex flex-col py-4 border-b xl:w-3/4 border-[#88888]">
         <h2 className="secondary font-sans text-xl sm:text-2xl">
-          {productData.name} ({productData.flavour}/{productData.weight})
+          {productData?.name} ({productData?.flavour}/{productData?.weight})
         </h2>
         <div className="flex gap-4 items-center">
           <span className="text-xs">by {productData?.brand}</span>
@@ -99,7 +106,7 @@ const ProductInfo = ({ productData, variant }) => {
             <Rating
               readOnly
               color="#8888"
-              value={productData?.avgRating}
+              value={!productData?.avgRating ? 0 : productData?.avgRating}
               size="small"
               sx={{ color: "#8d735f" }}
             />
@@ -113,29 +120,33 @@ const ProductInfo = ({ productData, variant }) => {
           </div>
         </div>
         <div>
-          {productData.availableQuantity &&
-          productData.availableQuantity !== 0 ? (
+          {productData?.availableQuantity &&
+          productData?.availableQuantity !== 0 ? (
             <div className="flex items-center  gap-2">
               <>
                 <span className="secondary font-bold sm:text-xl">
-                  ₹ {productData.priceDiscount}
+                  ₹ {productData?.priceDiscount}
                 </span>
                 <span className="text-primary line-through font-light sm:text-xl">
-                  ₹ {productData.price}
+                  ₹ {productData?.price}
                 </span>
               </>
             </div>
           ) : (
             <p className="secondary font-sans ">Out Of Stock</p>
           )}
-          {productData.availableQuantity <= 10 && (
+          {productData?.availableQuantity <= 10 && (
             <span className="secondary font-thin">
-              Only {productData.availableQuantity} stocks are left
+              Only {productData?.availableQuantity} stocks are left
             </span>
           )}
         </div>
         <div className="font-sans text-primary text-xs line-clamp-2">
-          {parse(productData.description.substring(0, 200))}
+          {parse(
+            productData != null
+              ? productData?.description.substring(0, 200)
+              : ""
+          )}
         </div>
       </div>
       <div className="gap-2 flex flex-col py-4 border-b xl:w-3/4 border-[#88888]">
@@ -157,7 +168,7 @@ const ProductInfo = ({ productData, variant }) => {
         <div className="flex flex-col gap-4">
           <span>Action</span>
           <div className="flex items-center justify-between">
-            {productData.availableQuantity >= 1 && (
+            {productData?.availableQuantity >= 1 && (
               <div className="border-2 border-[#f4f4f4] rounded-full py-1 px-4 flex items-center justify-center gap-4 w-fit ">
                 <button onClick={() => qty > 1 && setQty((prev) => prev - 1)}>
                   -
@@ -172,7 +183,7 @@ const ProductInfo = ({ productData, variant }) => {
               </div>
             )}
             <div className="flex items-center justify-center gap-4">
-              {productData.availableQuantity >= 1 && (
+              {productData?.availableQuantity >= 1 && (
                 <button
                   onClick={handleAddToCart}
                   className="border border-[#88888] p-3 rounded-full flex items-center justify-center primary-bg hover:secondary-bg hover:text-white cursor-pointer"
