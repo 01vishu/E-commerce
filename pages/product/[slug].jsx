@@ -4,7 +4,10 @@ import Description from "../../components/ProductPage/Details/Description";
 import Reviews from "../../components/ProductPage/Details/Reviews";
 import ImagePreview from "../../components/ProductPage/ImagePreview";
 import ProductInfo from "../../components/ProductPage/ProductInfo";
-const ProductDetail = ({ querySlug }) => {
+import { useRouter } from "next/router";
+const ProductDetail = () => {
+  const router = useRouter();
+
   const [selectDescription, setSelectDescription] = useState(true);
   const [selectReview, setSelectReview] = useState(false);
   const [productData, setproductData] = useState(null);
@@ -12,13 +15,15 @@ const ProductDetail = ({ querySlug }) => {
   // const productData = data;
   useEffect(() => {
     const loadData = async () => {
-      const response = await axios.get(`/api/product/${querySlug}`);
-      const variant = await axios.get(`/api/product/variant/${querySlug}`);
+      const response = await axios.get(`/api/product/${router.query.slug}`);
+      const variant = await axios.get(
+        `/api/product/variant/${router.query.slug}`
+      );
       setproductData(response.data.data);
       setVariant(variant.data.data);
     };
     loadData();
-  }, [querySlug]);
+  }, [router.query.slug]);
   console.log("Data", productData);
   console.log("Varient", variant);
   const handleSelectDescription = () => {
@@ -58,34 +63,5 @@ const ProductDetail = ({ querySlug }) => {
     </div>
   );
 };
-
-export async function getServerSideProps(context) {
-  // const response = await axios.get(`/api/product/${context.query.slug}`);
-  // const variant = await axios.get(`/api/product/variant/${context.query.slug}`);
-  const querySlug = context.query.slug;
-  // const response = await Product.findOne({ slug: context.query.slug });
-  // let product = await Product.findOne({ slug: context.query.slug });
-
-  // let variants = await Product.find({
-  //   name: product.name,
-  // });
-  // let flavourWeight = {};
-  // for (let item of variants) {
-  //   if (Object.keys(flavourWeight).includes(item.flavour)) {
-  //     flavourWeight[item.flavour][item.weight] = { slug: item.slug };
-  //   } else {
-  //     flavourWeight[item.flavour] = {};
-  //     flavourWeight[item.flavour][item.weight] = { slug: item.slug };
-  //   }
-  // }
-
-  return {
-    props: {
-      querySlug,
-      // data: JSON.parse(JSON.stringify(response)),
-      // variant: flavourWeight,
-    },
-  };
-}
 
 export default ProductDetail;
