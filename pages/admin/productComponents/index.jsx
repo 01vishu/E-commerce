@@ -10,8 +10,6 @@ import Brand from "../../../model/Brand";
 import Flavour from "../../../model/Flavour";
 import WeightTable from "../../../components/admin/ProductComponent/Weight";
 import Weight from "../../../model/Weight";
-import ProductTitle from "../../../model/ProductTitle";
-import ProductTilte from "../../../components/admin/ProductComponent/ProductTitle";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -88,9 +86,6 @@ export default function ProductComponects({
         <TabPanel value={value} index={2}>
           <WeightTable weights={weights} />
         </TabPanel>
-        <TabPanel value={value} index={3}>
-          <ProductTilte productTitle={productTitle} />
-        </TabPanel>
       </Box>
     </Layout>
   );
@@ -99,14 +94,12 @@ export async function getServerSideProps(context) {
   const brands = await Brand.find();
   const flavours = await Flavour.find();
   const weights = await Weight.find();
-  const productTitle = await ProductTitle.find();
 
   return {
     props: {
       brands: JSON.parse(JSON.stringify(brands)),
       flavours: JSON.parse(JSON.stringify(flavours)),
       weights: JSON.parse(JSON.stringify(weights)),
-      productTitle: JSON.parse(JSON.stringify(productTitle)),
     },
   };
 }

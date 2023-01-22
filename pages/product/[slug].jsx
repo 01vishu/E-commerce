@@ -18,7 +18,7 @@ const ProductDetail = ({ querySlug }) => {
       setVariant(variant.data.data);
     };
     loadData();
-  }, []);
+  }, [querySlug]);
   console.log("Data", productData);
   console.log("Varient", variant);
   const handleSelectDescription = () => {
