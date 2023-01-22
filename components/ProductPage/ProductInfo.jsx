@@ -31,7 +31,8 @@ const ProductInfo = ({ productData, variant }) => {
               }
               key={flavour[key][value[0]].slug}
               onClick={() => {
-                router.push(`/shop/${flavour[key][value[0]].slug}`), setQty(1);
+                router.push(`/product/${flavour[key][value[0]].slug}`),
+                  setQty(1);
               }}
             >
               {key.toString().toLocaleUpperCase()}
@@ -52,7 +53,7 @@ const ProductInfo = ({ productData, variant }) => {
               }
               key={index}
               onClick={() => {
-                router.push(`/shop/${slug}`), setQty(1);
+                router.push(`/product/${slug}`), setQty(1);
               }}
             >
               {weight}
