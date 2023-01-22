@@ -12,17 +12,18 @@ const ProductSchema = new mongoose.Schema(
     brand: {
       type: String,
       required: [true, "Product must have brand!"],
-      ref: "Brand",
+      lowercase: true,
     },
     category: {
       type: String,
       required: [true, "Proudct must have category!"],
-      ref: "Category",
+
+      lowercase: true,
     },
     subCategories: [
       {
         type: String,
-        ref: "SubCategory",
+        lowercase: true,
       },
     ],
 
@@ -33,7 +34,7 @@ const ProductSchema = new mongoose.Schema(
     flavour: {
       type: String,
       required: [true, "Product must have a flavour!"],
-      ref: "Flavour",
+
       lowercase: true,
     },
     weight: {
