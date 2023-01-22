@@ -103,7 +103,7 @@ export async function getServerSideProps(context) {
   if (session !== null) {
     return {
       redirect: {
-        destination: process.env.URL,
+        destination: "/",
       },
     };
   }

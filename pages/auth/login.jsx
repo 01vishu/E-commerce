@@ -104,7 +104,7 @@ export async function getServerSideProps(context) {
   if (session !== null) {
     return {
       redirect: {
-        destination: process.env.NEXT_PUBLIC_BASE_URL,
+        destination: "/",
       },
     };
   }
