@@ -49,7 +49,6 @@ class APIFeatures {
   }
   search() {
     if (this.queryString.search) {
-      console.log(this.queryString);
       const query = this.queryString.search.split(" ").join("+");
 
       this.query = this.query.find({

@@ -7,12 +7,21 @@ import { BsGithub } from "react-icons/bs";
 import { SiAuth0 } from "react-icons/si";
 import { getCsrfToken, getProviders, getSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
-const Login = ({ providers }) => {
+const Login = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  // const [providers, setProviders] = useState("");
+  // useEffect(() => {
+  //   const loadProvider = async () => {
+  //     const res = await getProviders();
+  //     setProviders(res);
+  //   };
+  //   loadProvider();
+  // }, [getProviders, providers]);
+  // console.log(providers);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,19 +84,19 @@ const Login = ({ providers }) => {
         <div className="flex items-center max-w-[300px] w-full justify-center flex-col gap-4">
           <button
             className="flex items-center border-2 gap-4 font-medium w-full justify-center border-[#f4f4f4] py-4 px-8"
-            onClick={() => signIn(providers.google.id)}
+            onClick={() => signIn("google")}
           >
             Continue With Google <FcGoogle size={20} />
           </button>
           <button
             className="flex items-center border-2 gap-4 font-medium w-full justify-center border-[#f4f4f4] py-4 px-8"
-            onClick={() => signIn(providers.github.id)}
+            onClick={() => signIn("github")}
           >
             Continue With Github <BsGithub size={20} />
           </button>
           <button
             className="flex items-center border-2 gap-4 font-medium w-full justify-center border-[#f4f4f4] py-4 px-8"
-            onClick={() => signIn(providers.auth0.id)}
+            onClick={() => signIn("auth0")}
           >
             Continue With Auth0 <SiAuth0 size={20} />
           </button>
@@ -108,10 +117,8 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const providers = await getProviders();
   return {
     props: {
-      providers,
       csrfToken,
     },
   };
