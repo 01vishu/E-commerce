@@ -5,7 +5,7 @@ import Spiner from "../../components/spiner";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import { SiAuth0 } from "react-icons/si";
-import { getCsrfToken, getProviders, getSession } from "next-auth/react";
+import { getCsrfToken, getSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
 const Login = () => {
   const router = useRouter();
@@ -13,15 +13,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [providers, setProviders] = useState("");
-  // useEffect(() => {
-  //   const loadProvider = async () => {
-  //     const res = await getProviders();
-  //     setProviders(res);
-  //   };
-  //   loadProvider();
-  // }, [getProviders, providers]);
-  // console.log(providers);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -84,19 +76,25 @@ const Login = () => {
         <div className="flex items-center max-w-[300px] w-full justify-center flex-col gap-4">
           <button
             className="flex items-center border-2 gap-4 font-medium w-full justify-center border-[#f4f4f4] py-4 px-8"
-            onClick={() => signIn("google")}
+            onClick={() => {
+              signIn("google");
+            }}
           >
             Continue With Google <FcGoogle size={20} />
           </button>
           <button
             className="flex items-center border-2 gap-4 font-medium w-full justify-center border-[#f4f4f4] py-4 px-8"
-            onClick={() => signIn("github")}
+            onClick={() => {
+              signIn("github");
+            }}
           >
             Continue With Github <BsGithub size={20} />
           </button>
           <button
             className="flex items-center border-2 gap-4 font-medium w-full justify-center border-[#f4f4f4] py-4 px-8"
-            onClick={() => signIn("auth0")}
+            onClick={() => {
+              signIn("auth0");
+            }}
           >
             Continue With Auth0 <SiAuth0 size={20} />
           </button>
@@ -109,8 +107,8 @@ export async function getServerSideProps(context) {
   const csrfToken = await getCsrfToken(context);
   const { req } = context;
   const session = await getSession({ req });
-
-  if (session !== null) {
+  console.log(session);
+  if (session != null) {
     return {
       redirect: {
         destination: "/",
