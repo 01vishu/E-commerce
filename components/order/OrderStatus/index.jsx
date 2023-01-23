@@ -5,9 +5,9 @@ const OrderStatus = ({ order }) => {
   return (
     <div className="border-2 flex flex-[2] flex-col gap-4 border-[#f4f4f4] p-4">
       <div className="flex flex-col gap-2">
-        <p className="flex gap-2 text-sm items-center">
+        <div className="flex gap-2 text-sm items-center">
           Order ID: <p className="font-semibold">{order._id}</p>
-        </p>
+        </div>
         <div>
           Payment Status:{" "}
           <b
@@ -17,8 +17,8 @@ const OrderStatus = ({ order }) => {
           >
             {order.paymentMethod == "cash"
               ? order.isPaid == true
-                ? "Cash On Delivery"
-                : "Order Not Confirmed"
+                ? "PAID"
+                : "Cash on delivery"
               : order.isPaid == true
               ? "PAID"
               : "UNPAID"}

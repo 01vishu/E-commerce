@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { PulseLoader } from "react-spinners";
 import Description from "../../components/ProductPage/Details/Description";
 import Reviews from "../../components/ProductPage/Details/Reviews";
 import ImagePreview from "../../components/ProductPage/ImagePreview";
@@ -34,7 +35,7 @@ const ProductDetail = ({ querySlug }) => {
     <>
       {productData == null ? (
         <div className="flex items-center justify-center h-screen w-full">
-          <p className="secondary text-3xl font-semibold">Loading...</p>
+          <PulseLoader loading={productData == null} color="#8d735f" />
         </div>
       ) : (
         <div className="m-2 flex flex-col gap-4">

@@ -29,12 +29,13 @@ const Payment = ({ paymentMethods, setPaymentMethods }) => {
               <span className="font-medium">Pay with {payment.name}</span>
               <p className="flex text-primary gap-2 flex-wrap text-sm">
                 {payment.images.length > 0
-                  ? payment.images.map((img) => (
+                  ? payment.images.map((img, i) => (
                       // eslint-disable-next-line react/jsx-key, @next/next/no-img-element
                       <img
                         src={`../../../images/payment/${img}.webp`}
                         alt=""
                         width={30}
+                        key={i}
                       />
                     ))
                   : payment.description}

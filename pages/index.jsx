@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import FamousProduct from "../components/MostFamous/ProductList";
 import ProductList from "../components/Product/ProductList";
 import Slider from "../components/Slider/Slider";
+import { PulseLoader } from "react-spinners";
+
 export default function Home() {
   const [productData, SetproductData] = useState("");
   useEffect(() => {
@@ -14,16 +16,20 @@ export default function Home() {
   }, []);
   return (
     <>
-      <Slider />
-      <div>
-        <ProductList product={productData?.data} />
-      </div>
-      <div className="primary-bg h-36 m-4">
-        <div>
-          <div className="">Image</div>
+      {productData === "" && (
+        <div className="flex justify-center items-center h-screen ">
+          <PulseLoader loading={productData === ""} color="#8d735f" />
         </div>
-      </div>
-      <FamousProduct product={productData?.data} />
+      )}
+      {productData != "" ? (
+        <div>
+          <Slider />
+          <ProductList product={productData?.data} />
+          <FamousProduct product={productData?.data} />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }

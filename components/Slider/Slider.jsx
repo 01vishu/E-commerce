@@ -39,6 +39,8 @@ const Slider = () => {
                 width={380}
                 height={380}
                 className="mix-blend-multiply"
+                loading="lazy"
+                priority={false}
               />
             </div>
             <div className="flex flex-col gap-2 my-8 px-2 w-fit items-start justify-center overflow-hidden">

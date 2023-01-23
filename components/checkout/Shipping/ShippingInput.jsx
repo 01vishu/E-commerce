@@ -14,7 +14,7 @@ const initialValues = {
   address2: "",
   country: "",
 };
-const ShippingInput = ({ user, visible, setVisible }) => {
+const ShippingInput = ({ user }) => {
   const router = useRouter();
   const [shipping, setShipping] = useState(initialValues);
   const {
@@ -35,7 +35,7 @@ const ShippingInput = ({ user, visible, setVisible }) => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(`/api/user/saveAddress`, {
+      await axios.patch(`/api/user/saveAddress`, {
         address: shipping,
         userId: user._id,
       });
@@ -130,7 +130,7 @@ const ShippingInput = ({ user, visible, setVisible }) => {
               className="px-2 py-1 invalid:text-primary placeholder:text-sm w-full sm:w-2/6 border-2 border-[#f4f4f4]"
               placeholder="Country"
             >
-              <option value={""} hidden disabled selected>
+              <option value={""} disabled>
                 Country
               </option>
               {countries.map((country, index) => {
